@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Agregar Prenda</title></head>
+<body>
+    <h1>Agregar nueva prenda</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre" placeholder="Ej: Polerón con capucha a cuadros" required><br><br>
+        
+        <label>Descripción:</label><br>
+        <textarea name="descripcion" placeholder="Ej: Talla L, material, marca..." required></textarea><br><br>
+        
+        <label>Disponible en inventario:</label>
+        <input type="checkbox" name="disponible" checked><br><br>
+        
+        <button type="submit">Guardar Prenda</button>
+    </form>
+    <br><a href="{% url 'inicio' %}">Volver al catálogo</a>
+</body>
+</html>

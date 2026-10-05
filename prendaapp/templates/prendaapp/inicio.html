@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head><title>Inventario de Ropa</title></head>
+<body>
+    <h1>Mi Catálogo de Ropa</h1>
+    <a href="{% url 'crear_prenda' %}">Agregar nueva prenda</a>
+    <hr>
+    <ul>
+        {% for prenda in prendas %}
+            <li>
+                <strong><a href="{% url 'detalle_prenda' prenda.id %}">{{ prenda.nombre }}</a></strong>
+                - {% if prenda.disponible %}Disponible{% else %}Agotado{% endif %}
+                <br>
+                <a href="{% url 'editar_prenda' prenda.id %}">Editar</a> | 
+                <a href="{% url 'eliminar_prenda' prenda.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <p>No hay prendas registradas aún.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

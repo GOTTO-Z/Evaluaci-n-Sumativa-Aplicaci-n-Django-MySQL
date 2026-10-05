@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Eliminar Prenda</title></head>
+<body>
+    <h1>¿Seguro que deseas eliminar "{{ prenda.nombre }}"?</h1>
+    <p>Esta acción no se puede deshacer.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Sí, eliminar definitivamente</button>
+    </form>
+    <br>
+    <a href="{% url 'inicio' %}">Cancelar y volver</a>
+</body>
+</html>

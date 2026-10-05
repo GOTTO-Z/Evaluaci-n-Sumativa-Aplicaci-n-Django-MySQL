@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>Detalle de Prenda</title></head>
+<body>
+    <h1>{{ prenda.nombre }}</h1>
+    <p><strong>Descripción:</strong> {{ prenda.descripcion }}</p>
+    <p><strong>Estado:</strong> {% if prenda.disponible %}Disponible{% else %}Agotado{% endif %}</p>
+    
+    <a href="{% url 'editar_prenda' prenda.id %}">Editar esta prenda</a> | 
+    <a href="{% url 'inicio' %}">Volver al catálogo</a>
+</body>
+</html>
