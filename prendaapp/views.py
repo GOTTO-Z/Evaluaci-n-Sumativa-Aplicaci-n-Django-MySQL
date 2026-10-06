@@ -1,61 +1,53 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Prenda
 
 # Create your views here.
 
-# def inicio(request):
-#     return HttpResponse("Hola, esta es mi App de Tareas")
-
 def inicio(request):
-    tareas = Tarea.objects.all()
+    prendas = Prenda.objects.all()
+    return render(request, 'prendaapp/inicio.html', {
+        'prendas': prendas
+    })
 
-    return render(request, 'tareasapp/inicio.html', {
-        'tareas': tareas
-    }) 
-
-def crear_tarea(request):
+def crear_prenda(request):
     if request.method == 'POST':
-        titulo = request.POST['titulo']
+        nombre = request.POST['nombre']
         descripcion = request.POST['descripcion']
-        completada = 'completa' in request.POST
+        disponible = 'disponible' in request.POST
 
-        Tarea.objects.create(
-            titulo = titulo,
-            descripcion= descripcion,
-            completada = completada
+        Prenda.objects.create(
+            nombre=nombre,
+            descripcion=descripcion,
+            disponible=disponible
         )
         return redirect('inicio')
-    return render(request, 'tareasapp/crear.html')
+    return render(request, 'prendaapp/crear.html')
 
-def detalle_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
-
-    return render(request, 'tareasapp/detalle.html', {
-        'tarea': tarea
+def detalle_prenda(request, id):
+    prenda = Prenda.objects.get(id=id)
+    return render(request, 'prendaapp/detalle.html', {
+        'prenda': prenda
     })
 
-def editar_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
-
+def editar_prenda(request, id):
+    prenda = Prenda.objects.get(id=id)
     if request.method == 'POST':
-        tarea.titulo = request.POST['titulo']
-        tarea.descripcion = request.POST['descripcion']
-        tarea.completada = 'completada' in request.POST
-
-        tarea.save()
-
+        prenda.nombre = request.POST['nombre']
+        prenda.descripcion = request.POST['descripcion']
+        prenda.disponible = 'disponible' in request.POST
+        
+        prenda.save()
+        
         return redirect('inicio')
-
-    return render(request, 'tareasapp/editar.html', {
-        'tarea': tarea
+    return render(request, 'prendaapp/editar.html', {
+        'prenda': prenda
     })
 
-def eliminar_tarea(request, id):
-    tarea = Tarea.objects.get(id=id)
-
+def eliminar_prenda(request, id):
+    prenda = Prenda.objects.get(id=id)
     if request.method == 'POST':
-        tarea.delete()
+        prenda.delete()
         return redirect('inicio')
-    
-    return render(request, 'tareasapp/eliminar.html', {
-        'tarea' : tarea
+    return render(request, 'prendaapp/eliminar.html', {
+        'prenda': prenda
     })
